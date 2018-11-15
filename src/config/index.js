@@ -11,6 +11,7 @@ var main_config = {
 	secret: '6FdAqPSYz6BB9xJSyNh2wF6SnM@%ZR6yMa9GZ6CS7YnXQ#bKNBM^^ujjT22pq8cM7UDezuyskjykj!^J',
 	root_dir: root,
 	public_dir: root + '/public',
+	web_dir: root + '/web',
 	models_dir: root + '/models',
 	controllers_dir: root + '/controllers',
 	library_dir: root + '/library',

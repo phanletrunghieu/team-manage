@@ -11,7 +11,7 @@ const start = () => {
 		app.use(helmet());
 		app.use(bodyParser.urlencoded({ extended: false }));
 		app.use(bodyParser.json({limit: '50mb', type: ['application/json', 'text/plain']}));
-		app.use(express.static(config.public_dir+"/build"));
+		app.use(express.static(config.web_dir+"/build"));
 		app.use((err, req, res, next) => {
 			reject(new Error('Something went wrong!, err:' + err))
 			res.status(500).send('Something went wrong!')
