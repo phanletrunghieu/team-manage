@@ -31,6 +31,9 @@ import ListMember from '../list_members/ListMember';
 
 
 let styles = theme => ({
+    root: {
+        display: 'flex',
+    },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
     },
@@ -76,7 +79,7 @@ class Dashboard extends Component {
         const { classes } = this.props
 
         return (
-            <div>
+            <div className={classes.root}>
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         <IconButton color="inherit" aria-label="Menu" className={classes.appBarMenuButton}>
@@ -97,10 +100,10 @@ class Dashboard extends Component {
                         component="nav"
                         subheader={<ListSubheader component="div">Members</ListSubheader>}
                     >
-                        <ListItem button>
+                        <ListItem button onClick={()=>this.props.history.push('/app/members')}>
                             <ListItemText primary="Members" />
                         </ListItem>
-                        <ListItem button>
+                        <ListItem button onClick={()=>this.props.history.push('/app/members/add')}>
                             <ListItemText primary="Add a member" />
                         </ListItem>
                     </List>
@@ -176,7 +179,9 @@ class Dashboard extends Component {
                     </List>
                 </Drawer>
                 <main className={classes.content}>
+                    <div className={classes.toolbar} />
                     <Switch>
+                        <Route exact path="/app" component={ListMember}/>
                         <Route path="/app/members" component={ListMember}/>
                     </Switch>
                 </main>

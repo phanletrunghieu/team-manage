@@ -1,4 +1,5 @@
 import config from '../config'
+import {getHeaders} from '../utils/common'
 
 const KEY_TOKEN = 'token';
 
@@ -50,6 +51,23 @@ export function signup(username, password, full_name) {
             if (resJSON.status === 0) {
                 return reject(resJSON.error.message)
             }
+            resolve(resJSON.result)
+        })
+        .catch(err=>reject(err))
+    })
+}
+
+export function findAllUsers() {
+    return new Promise(async (resolve, reject)=>{
+        return fetch(config.api_url+'/users', {
+            headers: getHeaders(),
+        })
+        .then(res => res.json())
+        .then(resJSON=>{
+            if (resJSON.status === 0) {
+                return reject(resJSON.error.message)
+            }
+
             resolve(resJSON.result)
         })
         .catch(err=>reject(err))
