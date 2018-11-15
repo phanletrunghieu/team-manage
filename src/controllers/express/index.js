@@ -3,10 +3,10 @@ var express = require('express');
 
 var mainRoutes = express.Router();
 
-mainRoutes.get('/', function(req, res) {
-	res.send('Hello! The API is at http://' + config.host + ':' + config.port + '/api');
-});
-
 mainRoutes.use('/api', require('./api'));
+
+mainRoutes.get('*', (req,res) =>{
+    res.sendFile(config.public_dir+'/build/index.html')
+})
 
 module.exports = mainRoutes;
