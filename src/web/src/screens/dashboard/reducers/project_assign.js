@@ -1,4 +1,4 @@
-import {REQUEST_PROJECT_ASSIGN, FETCH_FAIL, FETCH_SUCCESSFULL, HANDLE_ERROR} from '../constants/project_assign'
+import {REQUEST_PROJECT_ASSIGN, PROJECT_ASSIGN_FETCH_FAIL, PROJECT_ASSIGN_FETCH_SUCCESSFULL, PROJECT_ASSIGN_HANDLE_ERROR} from '../constants/project_assign'
 
 const initialState = {
     isLoading: false,
@@ -13,19 +13,19 @@ export const projectAssignData = (state = initialState, action) => {
             ...state,
             isLoading: true
         }
-    case FETCH_SUCCESSFULL:
+    case PROJECT_ASSIGN_FETCH_SUCCESSFULL:
         return {
             ...state,
             isLoading: false,
             projects: action.projects
         }
-    case FETCH_FAIL:
+    case PROJECT_ASSIGN_FETCH_FAIL:
         return {
             ...state,
             isLoading: false,
             error: action.error
         }
-    case HANDLE_ERROR:
+    case PROJECT_ASSIGN_HANDLE_ERROR:
         return {
             ...state,
             error: null

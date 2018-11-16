@@ -20,14 +20,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 import {signout} from '../../api/UserAPI'
-import { getProjectCreated, handeError as handeErrorProjectCreated } from './actions/project_created';
+import { getProjectCreated, deleteProject, handeError as handeErrorProjectCreated } from './actions/project_created';
 import { getProjectAssign, handeError as handeErrorProjectAssign } from './actions/project_assign';
 
 import Alert from '../../components/Alert'
 import ListMember from '../list_members/ListMember';
+import CreateMember from '../create_member/CreateMember';
+import CreateProject from '../create_project/CreateProject';
+import UpdateProject from '../update_project/UpdateProject';
 
 
 let styles = theme => ({
@@ -56,13 +60,11 @@ let styles = theme => ({
 })
 
 class Dashboard extends Component {
-    state = {
-        anchorElMenu: null
-    }
     constructor(props){
         super(props)
 
         this.onClickSignout = this.onClickSignout.bind(this)
+        this.onClickDeleteProject = this.onClickDeleteProject.bind(this)
     }
 
     componentDidMount(){
@@ -73,6 +75,13 @@ class Dashboard extends Component {
     onClickSignout(){
         signout()
         this.props.history.replace("/")
+    }
+
+    onClickDeleteProject(project){
+        var r = window.confirm("Delete project\"" + project.name + "\"");
+        if (r == true) {
+            this.props.deleteProject(project._id)
+        }
     }
 
     render() {
@@ -103,7 +112,7 @@ class Dashboard extends Component {
                         <ListItem button onClick={()=>this.props.history.push('/app/members')}>
                             <ListItemText primary="Members" />
                         </ListItem>
-                        <ListItem button onClick={()=>this.props.history.push('/app/members/add')}>
+                        <ListItem button onClick={()=>this.props.history.push('/app/members/create')}>
                             <ListItemText primary="Add a member" />
                         </ListItem>
                     </List>
@@ -112,7 +121,7 @@ class Dashboard extends Component {
                         component="nav"
                         subheader={<ListSubheader component="div">Projects you create</ListSubheader>}
                     >
-                        <ListItem button>
+                        <ListItem button onClick={()=>this.props.history.push('/app/projects/create')}>
                             <ListItemIcon>
                                 <AddIcon />
                             </ListItemIcon>
@@ -121,25 +130,14 @@ class Dashboard extends Component {
                         {
                             this.props.projectCreatedData.projects.map(project=>(
                                 <ListItem button key={project.name}>
-                                    <ListItemText primary={project.name} />
+                                    <ListItemText primary={project.name || "Unnamed"} />
                                     <ListItemSecondaryAction>
-                                        <IconButton
-                                            aria-label="More"
-                                            aria-owns={this.state.anchorElMenu ? 'long-menu' : undefined}
-                                            aria-haspopup="true"
-                                            onClick={e=>this.setState({anchorElMenu: e.currentTarget})}
-                                        >
-                                            <MoreVertIcon />
+                                        <IconButton onClick={()=>this.props.history.push('/app/projects/update/'+project._id)}>
+                                            <EditIcon />
                                         </IconButton>
-                                        <Menu
-                                            id="long-menu"
-                                            anchorEl={this.state.anchorElMenu}
-                                            open={this.state.anchorElMenu!==null}
-                                            onClose={()=>this.setState({anchorElMenu: null})}
-                                        >
-                                            <MenuItem onClick={()=>this.setState({anchorElMenu: null})}>Edit</MenuItem>
-                                            <MenuItem onClick={()=>this.setState({anchorElMenu: null})}>Delete</MenuItem>
-                                        </Menu>
+                                        <IconButton onClick={()=>this.onClickDeleteProject(project)}>
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>
                             ))
@@ -154,25 +152,6 @@ class Dashboard extends Component {
                             this.props.projectAssignData.projects.map(project=>(
                                 <ListItem button key={project.name}>
                                     <ListItemText primary={project.name} />
-                                    <ListItemSecondaryAction>
-                                        <IconButton
-                                            aria-label="More"
-                                            aria-owns={this.state.anchorElMenu ? 'long-menu' : undefined}
-                                            aria-haspopup="true"
-                                            onClick={e=>this.setState({anchorElMenu: e.currentTarget})}
-                                        >
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                        <Menu
-                                            id="long-menu"
-                                            anchorEl={this.state.anchorElMenu}
-                                            open={this.state.anchorElMenu!==null}
-                                            onClose={()=>this.setState({anchorElMenu: null})}
-                                        >
-                                            <MenuItem onClick={()=>this.setState({anchorElMenu: null})}>Edit</MenuItem>
-                                            <MenuItem onClick={()=>this.setState({anchorElMenu: null})}>Delete</MenuItem>
-                                        </Menu>
-                                    </ListItemSecondaryAction>
                                 </ListItem>
                             ))
                         }
@@ -182,7 +161,10 @@ class Dashboard extends Component {
                     <div className={classes.toolbar} />
                     <Switch>
                         <Route exact path="/app" component={ListMember}/>
-                        <Route path="/app/members" component={ListMember}/>
+                        <Route exact path="/app/members" component={ListMember}/>
+                        <Route exact path="/app/members/create" component={CreateMember} />
+                        <Route exact path="/app/projects/create" component={CreateProject} />
+                        <Route exact path="/app/projects/update/:id" component={UpdateProject} />
                     </Switch>
                 </main>
             </div>
@@ -198,6 +180,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
     handeErrorProjectCreated: ()=>dispatch(handeErrorProjectCreated()),
     getProjectCreated: ()=>dispatch(getProjectCreated()),
+    deleteProject: (projectID)=>dispatch(deleteProject(projectID)),
 
     handeErrorProjectAssign: ()=>dispatch(handeErrorProjectAssign()),
     getProjectAssign: ()=>dispatch(getProjectAssign()),

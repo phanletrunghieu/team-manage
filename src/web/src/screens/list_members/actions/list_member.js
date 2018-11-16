@@ -1,4 +1,4 @@
-import {REQUEST_LIST_USER, FETCH_SUCCESSFULL, FETCH_FAIL, HANDLE_ERROR} from '../constants/list_member'
+import {REQUEST_LIST_USER, LIST_USER_FETCH_SUCCESSFULL, LIST_USER_FETCH_FAIL, LIST_USER_HANDLE_ERROR} from '../constants/list_member'
 import {findAllUsers} from '../../../api/UserAPI'
 
 export function requestListUser(){
@@ -9,21 +9,21 @@ export function requestListUser(){
 
 export function fetchSuccessfully(users){
     return {
-        type: FETCH_SUCCESSFULL,
+        type: LIST_USER_FETCH_SUCCESSFULL,
         users
     }
 }
 
 export function fetchError(error){
     return {
-        type: FETCH_FAIL,
+        type: LIST_USER_FETCH_FAIL,
         error
     }
 }
 
 export function handeError(){
     return {
-        type: HANDLE_ERROR,
+        type: LIST_USER_HANDLE_ERROR,
     }
 }
 

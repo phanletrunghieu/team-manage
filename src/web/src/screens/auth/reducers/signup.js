@@ -1,4 +1,4 @@
-import {START_SIGNUP, SIGNUP_SUCCESSFULL, HANDLE_ERROR, SIGNUP_FAIL} from '../constants/signup'
+import {START_SIGNUP, SIGNUP_SUCCESSFULL, SIGNUP_HANDLE_ERROR, SIGNUP_FAIL} from '../constants/signup'
 
 const initialState = {
     startSignup: false,
@@ -25,7 +25,7 @@ export const signupData = (state = initialState, action) => {
             startSignup: false,
             error: action.err
         }
-    case HANDLE_ERROR:
+    case SIGNUP_HANDLE_ERROR:
         return {
             ...state,
             error: null

@@ -38,12 +38,12 @@ export function login(username, password) {
     })
 }
 
-export function signup(username, password, full_name) {
+export function signup(username, password, full_name, phone) {
     return new Promise(async (resolve, reject)=>{
         return fetch(config.api_url+'/users', {
             method: "POST",
             body: JSON.stringify({
-                user: {username, password, full_name}
+                user: {username, password, full_name, phone}
             }),
         })
         .then(res => res.json())

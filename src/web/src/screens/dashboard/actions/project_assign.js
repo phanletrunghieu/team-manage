@@ -1,4 +1,4 @@
-import {REQUEST_PROJECT_ASSIGN, FETCH_SUCCESSFULL, FETCH_FAIL, HANDLE_ERROR} from '../constants/project_assign'
+import {REQUEST_PROJECT_ASSIGN, PROJECT_ASSIGN_FETCH_SUCCESSFULL, PROJECT_ASSIGN_FETCH_FAIL, PROJECT_ASSIGN_HANDLE_ERROR} from '../constants/project_assign'
 import {getProjectAssign as getProjectAssignAPI} from '../../../api/ProjectAPI'
 
 export function requestProjectAssign(){
@@ -9,21 +9,21 @@ export function requestProjectAssign(){
 
 export function fetchSuccessfully(projects){
     return {
-        type: FETCH_SUCCESSFULL,
+        type: PROJECT_ASSIGN_FETCH_SUCCESSFULL,
         projects
     }
 }
 
 export function fetchError(error){
     return {
-        type: FETCH_FAIL,
+        type: PROJECT_ASSIGN_FETCH_FAIL,
         error
     }
 }
 
 export function handeError(){
     return {
-        type: HANDLE_ERROR,
+        type: PROJECT_ASSIGN_HANDLE_ERROR,
     }
 }
 

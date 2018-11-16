@@ -39,6 +39,7 @@ class Auth extends Component {
     state = {
         tab: 1,
         username: "",
+        phone: "",
         password: "",
         password1: "",
         password2: "",
@@ -67,7 +68,7 @@ class Auth extends Component {
     }
 
     onClickSignup(){
-        let {username, password1, password2, full_name} = this.state
+        let {username, password1, password2, full_name, phone} = this.state
 
         if (!username) {
             return alert("please fill your username")
@@ -81,7 +82,11 @@ class Auth extends Component {
             return alert("please fill your password")
         }
 
-        this.props.signup(username, password1, full_name)
+        if (!phone) {
+            return alert("please fill your phone")
+        }
+
+        this.props.signup(username, password1, full_name, phone)
     }
 
     render() {
@@ -135,6 +140,14 @@ class Auth extends Component {
                             label="Your full name"
                             value={this.state.full_name}
                             onChange={e=>this.setState({full_name: e.target.value})}
+                            margin="normal"
+                            fullWidth
+                        />
+                        <TextField
+                            id="phone"
+                            label="Your phone"
+                            value={this.state.phone}
+                            onChange={e=>this.setState({phone: e.target.value})}
                             margin="normal"
                             fullWidth
                         />

@@ -1,11 +1,11 @@
 import {signup as signupAPI} from '../../../api/UserAPI'
-import {START_SIGNUP, SIGNUP_SUCCESSFULL, SIGNUP_FAIL, HANDLE_ERROR} from '../constants/signup'
+import {START_SIGNUP, SIGNUP_SUCCESSFULL, SIGNUP_FAIL, SIGNUP_HANDLE_ERROR} from '../constants/signup'
 
-export function signup(username, password, full_name){
+export function signup(username, password, full_name, phone){
     return (dispatch)=>{
         dispatch(startSignup())
 
-        signupAPI(username, password, full_name)
+        signupAPI(username, password, full_name, phone)
         .then(user=>{
             dispatch(signupSuccessfull())
         })
@@ -34,6 +34,6 @@ export function signupFail(err){
 
 export function handeError(){
     return {
-        type: HANDLE_ERROR,
+        type: SIGNUP_HANDLE_ERROR,
     }
 }

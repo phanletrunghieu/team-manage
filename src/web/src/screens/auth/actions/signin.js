@@ -1,5 +1,5 @@
 import {login as loginAPI} from '../../../api/UserAPI'
-import {START_LOGIN, LOGIN_SUCCESSFULL, LOGIN_FAIL, HANDLE_ERROR} from '../constants/signin.js'
+import {START_LOGIN, LOGIN_SUCCESSFULL, LOGIN_FAIL, LOGIN_HANDLE_ERROR} from '../constants/signin.js'
 
 export function login(username, password){
     return (dispatch)=>{
@@ -34,6 +34,6 @@ export function loginFail(err){
 
 export function handeError(){
     return {
-        type: HANDLE_ERROR,
+        type: LOGIN_HANDLE_ERROR,
     }
 }

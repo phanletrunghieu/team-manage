@@ -13,13 +13,12 @@ var UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    email: {
+    phone: {
         type: String,
         trim: true,
-        lowercase: true,
         index: {
             unique: true,
-            partialFilterExpression: {email: {$type: 'string'}}
+            partialFilterExpression: {phone: {$type: 'string'}}
         }
     },
     is_confirm_email: {

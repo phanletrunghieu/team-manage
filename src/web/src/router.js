@@ -1,8 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import PrivateRoute from './components/PrivateRoute'
+
 import Auth from './screens/auth/Auth'
 import Dashboard from './screens/dashboard/Dashboard'
-import PrivateRoute from './components/PrivateRoute'
 
 const Root = () => (
     <Router>

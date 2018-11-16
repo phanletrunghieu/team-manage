@@ -1,4 +1,4 @@
-import {START_LOGIN, LOGIN_SUCCESSFULL, HANDLE_ERROR, LOGIN_FAIL} from '../constants/signin.js'
+import {START_LOGIN, LOGIN_SUCCESSFULL, LOGIN_HANDLE_ERROR, LOGIN_FAIL} from '../constants/signin.js'
 
 const initialState = {
     startLogin: false,
@@ -25,7 +25,7 @@ export const loginData = (state = initialState, action) => {
             startLogin: false,
             error: action.err
         }
-    case HANDLE_ERROR:
+    case LOGIN_HANDLE_ERROR:
         return {
             ...state,
             error: null
