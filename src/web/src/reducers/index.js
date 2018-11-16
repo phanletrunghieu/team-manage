@@ -6,6 +6,7 @@ import {projectCreatedData} from "../screens/dashboard/reducers/project_created"
 import {projectAssignData} from "../screens/dashboard/reducers/project_assign"
 
 import {memberData} from "../screens/list_members/reducers/list_member"
+import {projectMemberData} from "../screens/project_member/reducers/get_members"
 
 export default combineReducers({
     loginData,
@@ -13,6 +14,6 @@ export default combineReducers({
 
     projectCreatedData,
     projectAssignData,
-    
-    memberData
+    memberData,
+    projectMemberData
 });

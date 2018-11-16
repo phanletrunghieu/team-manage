@@ -44,16 +44,14 @@ class ListMember extends Component {
                     </TableHead>
                     <TableBody>
                         {
-                            memberData.users.map((user, i)=>{
-                                return (
-                                    <TableRow>
+                            memberData.users.map((user, i)=>(
+                                <TableRow>
                                     <TableCell component="th" scope="row">{i}</TableCell>
                                     <TableCell>{user.full_name}</TableCell>
                                     <TableCell>{user.username}</TableCell>
                                     <TableCell>{user.date_created}</TableCell>
                                 </TableRow>
-                                )
-                            })
+                            ))
                         }
                     </TableBody>
                 </Table>

@@ -32,6 +32,7 @@ import ListMember from '../list_members/ListMember';
 import CreateMember from '../create_member/CreateMember';
 import CreateProject from '../create_project/CreateProject';
 import UpdateProject from '../update_project/UpdateProject';
+import ProjectMember from '../project_member/ProjectMember';
 
 
 let styles = theme => ({
@@ -129,10 +130,10 @@ class Dashboard extends Component {
                         </ListItem>
                         {
                             this.props.projectCreatedData.projects.map(project=>(
-                                <ListItem button key={project.name}>
+                                <ListItem button key={project.name} onClick={()=>this.props.history.push('/app/projects/'+project._id+'/members')}>
                                     <ListItemText primary={project.name || "Unnamed"} />
                                     <ListItemSecondaryAction>
-                                        <IconButton onClick={()=>this.props.history.push('/app/projects/update/'+project._id)}>
+                                        <IconButton onClick={()=>this.props.history.push('/app/projects/'+project._id+'/update')}>
                                             <EditIcon />
                                         </IconButton>
                                         <IconButton onClick={()=>this.onClickDeleteProject(project)}>
@@ -164,7 +165,8 @@ class Dashboard extends Component {
                         <Route exact path="/app/members" component={ListMember}/>
                         <Route exact path="/app/members/create" component={CreateMember} />
                         <Route exact path="/app/projects/create" component={CreateProject} />
-                        <Route exact path="/app/projects/update/:id" component={UpdateProject} />
+                        <Route exact path="/app/projects/:id/update" component={UpdateProject} />
+                        <Route exact path="/app/projects/:id/members" component={ProjectMember} />
                     </Switch>
                 </main>
             </div>

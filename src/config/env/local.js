@@ -8,4 +8,3 @@ module.exports={
         database: "team_manage",
     }
 };
-  

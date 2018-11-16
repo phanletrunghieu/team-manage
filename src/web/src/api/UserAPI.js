@@ -74,6 +74,23 @@ export function findAllUsers() {
     })
 }
 
+export function findByID(userID) {
+    return new Promise(async (resolve, reject)=>{
+        return fetch(config.api_url+'/users/'+userID, {
+            headers: getHeaders(),
+        })
+        .then(res => res.json())
+        .then(resJSON=>{
+            if (resJSON.status === 0) {
+                return reject(resJSON.error.message)
+            }
+
+            resolve(resJSON.result)
+        })
+        .catch(err=>reject(err))
+    })
+}
+
 export function isLoggedIn() {
     const tok=getToken();
     return !!tok;
