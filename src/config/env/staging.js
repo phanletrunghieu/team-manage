@@ -4,7 +4,7 @@ module.exports={
         host: 'ds055915.mlab.com',
         port: 55915,
         user: "user1",
-        password: "yrGyZ%6K89x3ZSz",
+        password: "123456abc",
         database: "team_manage",
     }
 };
