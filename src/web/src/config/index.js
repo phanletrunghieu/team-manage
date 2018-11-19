@@ -1,5 +1,5 @@
 const config = {
-    api_url: "http://localhost:3000/api",
+    api_url: "/api",
 }
 
 module.exports = config
