@@ -75,7 +75,7 @@ class Dashboard extends Component {
 
     onClickSignout(){
         signout()
-        this.props.history.replace("/")
+        window.location.reload()
     }
 
     onClickDeleteProject(project){

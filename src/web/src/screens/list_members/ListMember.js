@@ -49,7 +49,7 @@ class ListMember extends Component {
                                     <TableCell component="th" scope="row">{i}</TableCell>
                                     <TableCell>{user.full_name}</TableCell>
                                     <TableCell>{user.username}</TableCell>
-                                    <TableCell>{user.date_created}</TableCell>
+                                    <TableCell>{new Date(user.date_created).toDateString()}</TableCell>
                                 </TableRow>
                             ))
                         }

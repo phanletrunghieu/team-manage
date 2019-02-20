@@ -1,20 +1,15 @@
 import config from '../config'
 import {getHeaders} from '../utils/common'
+import jwtDecode from 'jwt-decode';
 
 const KEY_TOKEN = 'token';
 
 export function getToken(){
     return sessionStorage.getItem(KEY_TOKEN);
-  }
-  
-  export function setToken(token) {
-    sessionStorage.setItem(KEY_TOKEN, token);
-  }
+}
 
-export function checkToken(token) {
-    return new Promise((resolve, reject)=>{
-        resolve()
-    })
+export function setToken(token) {
+    sessionStorage.setItem(KEY_TOKEN, token);
 }
 
 export function login(username, password) {
@@ -97,12 +92,16 @@ export function isLoggedIn() {
 }
 
 export function signout() {
-    const tok=setToken();
-    return !!tok;
+    sessionStorage.removeItem(KEY_TOKEN);
 }
 
 export function requireAuth(nextState, replace) {
     if (!isLoggedIn()) {
         replace({pathname: '/'});
     }
+}
+
+export function getTokenData() {
+    let token = sessionStorage.getItem(KEY_TOKEN);
+    return jwtDecode(token)
 }

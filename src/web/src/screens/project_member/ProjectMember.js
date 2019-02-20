@@ -14,7 +14,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { getProjectMember, assignMember, unassignMember } from './actions/get_members';
-
+import { add as projectAssignAdd, remove as projectAssignRemove } from '../dashboard/actions/project_assign';
+import {getTokenData} from '../../api/UserAPI'
 const styles = theme => ({
     root: {
         width: '100%',
@@ -35,12 +36,6 @@ class ProjectMember extends Component {
         memberToAssign: 0
     }
 
-    constructor(props){
-        super(props)
-
-        this.onClickAssignMember = this.onClickAssignMember.bind(this)
-    }
-
     componentWillReceiveProps({match}){
         if(this.projectID !== match.params.id){
             this.projectID = match.params.id
@@ -48,9 +43,24 @@ class ProjectMember extends Component {
         }
     }
 
-    onClickAssignMember(){
+    onClickAssignMember = () => {
         let u = this.props.memberData.users[this.state.memberToAssign]
         this.props.assignMember(this.projectID, u._id)
+
+        // add to project assign in left panel
+        if(getTokenData()._id === u._id){
+            let project = this.props.projectCreatedData.projects.find(p=>p._id===this.projectID)
+            this.props.projectAssignAdd(project)
+        }
+    }
+
+    onClickUnassignMember = (user) => {
+        this.props.unassignMember(this.projectID, user._id)
+
+        // add to project assign in left panel
+        if(getTokenData()._id === user._id){
+            this.props.projectAssignRemove(this.projectID)
+        }
     }
 
     render() {
@@ -94,9 +104,9 @@ class ProjectMember extends Component {
                                     <TableCell component="th" scope="row">{i}</TableCell>
                                     <TableCell>{user.full_name}</TableCell>
                                     <TableCell>{user.username}</TableCell>
-                                    <TableCell>{user.date_created}</TableCell>
+                                    <TableCell>{new Date(user.date_created).toDateString()}</TableCell>
                                     <TableCell>
-                                        <IconButton onClick={()=>this.props.unassignMember(this.projectID, user._id)}>
+                                        <IconButton onClick={()=>this.onClickUnassignMember(user)}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </TableCell>
@@ -113,12 +123,17 @@ class ProjectMember extends Component {
 const mapStateToProps = (state) => ({
     memberData: state.memberData,
     projectMemberData: state.projectMemberData,
+    projectCreatedData: state.projectCreatedData,
 })
 
 const mapDispatchToProps = dispatch => ({
     getProjectMember: (project)=>dispatch(getProjectMember(project)),
     assignMember: (projectID, memberID)=>dispatch(assignMember(projectID, memberID)),
     unassignMember: (projectID, memberID)=>dispatch(unassignMember(projectID, memberID)),
+
+    projectAssignAdd: (project)=>dispatch(projectAssignAdd(project)),
+    projectAssignRemove: (projectID)=>dispatch(projectAssignRemove(projectID)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ProjectMember))
