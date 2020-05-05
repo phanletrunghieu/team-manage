@@ -1,5 +1,9 @@
 # team-manage
 
+## Require
+
+- Nodejs v8
+
 ## How to run
 `npm start`
 
